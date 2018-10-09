@@ -1,0 +1,65 @@
+{
+  "name": "web-game-maker",
+  "version": "1.0.0",
+  "description": "A chrome extention for build online/offline web games.",
+  "private": true,
+  "scripts": {
+    "dev": "node webpack.dev.js",
+    "build": "node webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrbigmouth/web-game-maker.git"
+  },
+  "keywords": [
+    "web",
+    "game",
+    "maker"
+  ],
+  "author": "mrbigmouth",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mrbigmouth/web-game-maker/issues"
+  },
+  "homepage": "https://github.com/mrbigmouth/web-game-maker#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.4",
+    "@fortawesome/free-regular-svg-icons": "5.3.1",
+    "@fortawesome/free-solid-svg-icons": "5.3.1",
+    "@fortawesome/vue-fontawesome": "0.1.1",
+    "vue": "2.5.17",
+    "vue-form": "4.9.0",
+    "vuex": "3.0.1",
+    "vuex-i18n": "1.10.5"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
+    "autoprefixer": "9.1.5",
+    "babel-eslint": "9.0.0",
+    "babel-loader": "8.0.2",
+    "connect": "3.6.6",
+    "copy-webpack-plugin": "4.5.2",
+    "css-loader": "1.0.0",
+    "eslint": "5.5.0",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-loader": "2.1.0",
+    "eslint-plugin-html": "4.0.5",
+    "friendly-errors-webpack-plugin": "1.7.0",
+    "html-webpack-plugin": "3.2.0",
+    "mini-css-extract-plugin": "0.4.2",
+    "postcss-loader": "3.0.0",
+    "rimraf": "2.6.2",
+    "serve-static": "1.13.2",
+    "stylus": "0.54.5",
+    "stylus-loader": "3.0.2",
+    "url-loader": "1.1.1",
+    "vue-loader": "15.4.1",
+    "vue-style-loader": "4.1.2",
+    "vue-template-compiler": "2.5.17",
+    "webpack": "4.17.1",
+    "webpack-bundle-analyzer": "2.13.1",
+    "ws": "6.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+# OS
+.DS_Store
+
+# npm directory
+.npm
+node_modules/
+
+# build data
+/destination/
+

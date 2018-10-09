@@ -1,0 +1,18 @@
+{
+  "manifest_version"  : 2,
+  "name"              : "Web Game Maker",
+  "version"           : "1.0",
+  "description"       : "",
+  "permissions"       : [
+    "storage",
+    "unlimitedStorage"
+  ],
+  "background": {
+    "scripts": ["background.bundle.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_title": "Web Game Maker"
+  },
+  "web_accessible_resources"  : []
+}
