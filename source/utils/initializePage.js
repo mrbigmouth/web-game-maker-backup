@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import store from 'store/storeForClient';
 import 'i18n/i18n';
+import './timeTools';
 
 export default function initializePage(Page, privateStore) {
   Vue.config.productionTip = process.env.isProduction;
