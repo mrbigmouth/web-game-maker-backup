@@ -1,4 +1,4 @@
 
 # license
-[GNU general public license version 3](./blob/master/LICENSE)
+[GNU general public license version 3](./LICENSE)
 
