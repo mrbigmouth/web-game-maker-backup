@@ -216,12 +216,28 @@ fs.watch(pathToPageFolder, (eventName) => {
   }
 });
 
-
-
 const connect = require('connect');
 const serveStatic = require('serve-static');
 const WebSocket = require('ws');
-const data = require('./source/chrome/imports/data.json');
+
+// watching data change
+const pathToDataJson = path.join(ROOTPATH, 'source', 'chrome', 'imports', 'data.json');
+let data;
+function loadData() {
+  console.log('loading data...');
+  try {
+    const dataText = fs.readFileSync(pathToDataJson);
+    data = JSON.parse(dataText);
+  }
+  catch(e) {
+    console.error(e);
+  }
+}
+fs.watch(pathToDataJson, () => {
+  console.log('initial data.json was changed!');
+  loadData();
+});
+loadData();
 
 const server = connect();
 server
@@ -299,6 +315,7 @@ wsServer.on('connection', (ws) => {
       }
     }
     catch (e) {
+      console.error(e);
       const message = {
         ...parsedMessage,
         error: {
