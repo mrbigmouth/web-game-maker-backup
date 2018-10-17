@@ -24,7 +24,7 @@ const webpackConfig = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       'check$': path.join(ROOTPATH, 'source', 'utils', 'check.js'),
-      'sharePort$': path.join(ROOTPATH, 'source', 'store', 'sharePortInDev.js'),
+      'storeHelpers$': path.join(ROOTPATH, 'source', 'utils', 'store', 'storeHelpersInDev.js'),
     },
     extensions: ['.js', '.vue', '.json'],
     modules: [

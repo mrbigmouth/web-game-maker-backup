@@ -8,6 +8,7 @@ export function check(value, pattern) {
     }
     /* eslint-disable no-debugger */
     debugger;
+    /* eslint-enable no-debugger */
     throw err;
   }
 

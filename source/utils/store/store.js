@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {initialize, sendUpdate, sendRead, onUpdate} from 'sharePort';
+import { initialize, sendUpdate, sendRead, onUpdate } from 'storeHelpers';
+import maker from './maker/maker';
 
 Vue.use(Vuex);
 
@@ -28,11 +29,12 @@ export const store = new Vuex.Store({
     }
   ],
   modules: {
+    maker,
   },
   state: {
     errorList: [],
     sync: {},
-    develop: {},
+    maker: {},
     player: {},
   },
   getters: {
@@ -65,6 +67,10 @@ export const store = new Vuex.Store({
       else {
         state.errorList.push(error);
       }
+    },
+    // remove first error into error list
+    confirmError(state) {
+      state.errorList.shift();
     },
     // update mutation for self-use data
     update(state, payload) {
