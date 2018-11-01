@@ -102,24 +102,32 @@ export const store = new Vuex.Store({
   actions: {
     // update action for share data
     update(store, payload) {
-      sendUpdate(payload, (message) => {
-        if (message.error) {
-          store.commit('error', message.error);
-        }
-        else {
-          store.commit('update', payload);
-        }
-      });
+      return new Promise((resolve, reject) => {
+        sendUpdate(payload, (message) => {
+          if (message.error) {
+            store.commit('error', message.error);
+            reject(message.error);
+          }
+          else {
+            store.commit('update', payload);
+            resolve(payload);
+          }
+        });
+      })
     },
     // read specific detail(not sync/i18n) data from share data
     read(store, pathList) {
-      sendRead(pathList, (message) => {
-        if (message.error) {
-          store.commit('error', message.error);
-        }
-        else {
-          store.commit('update', message.data);
-        }
+      return new Promise((resolve, reject) => {
+        sendRead(pathList, (message) => {
+          if (message.error) {
+            store.commit('error', message.error);
+            reject(message.error);
+          }
+          else {
+            store.commit('update', message.data);
+            resolve(message.data);
+          }
+        });
       });
     }
   },

@@ -1,5 +1,6 @@
 <template>
-  <form class="container-fluid">
+  <form>
+    <panel-game-list-in-making />
     <collapse-card>
       <span slot="title">{{$t('basicSettings')}}</span>
       <div slot="body" class="form-group">
@@ -17,34 +18,33 @@
         </select>
       </div>
     </collapse-card>
+    <create-game-dialog v-if="isShowCreateGameDialog" />
   </form>
 </template>
 
 <script>
-  import 'utils/font-awesome';
-  import 'utils/bootstrap-watch-slate.min.css';
-  // import { mapState, mapGetters, mapMutations } from 'vuex';
-  import CollapseCard from 'utils/vue/CollapseCard';
-  import setDocumentTitle from 'utils/mixins/setDocumentTitle';
-  import mappingModel from 'store/mappingModel';
+  import { mapState } from 'vuex';
+  import { mapModel } from 'storeHelpers';
+  import PanelGameListInMaking from './PanelGameListInMaking';
+  import CollapseCard from 'utils/collapseCard/CollapseCard';
+  import CreateNewGameDialog from './CreateNewGameDialog';
 
   export default {
-    name: 'Home',
-    mixins: [setDocumentTitle],
+    name: 'Main',
     computed: {
-      documentTitle() {
-        return this.$t('documentTitle', {
-          pageName: this.$t('pageNameMain'),
-        });
-      },
-      ...mappingModel('/i18n', [
+      ...mapModel('i18n', [
         'locale',
+      ]),
+      ...mapState('page', [
+        'isShowCreateGameDialog',
       ]),
     },
     methods: {
     },
     components: {
+      'panel-game-list-in-making': PanelGameListInMaking,
       'collapse-card': CollapseCard,
+      'create-game-dialog': CreateNewGameDialog,
     },
   };
 </script>

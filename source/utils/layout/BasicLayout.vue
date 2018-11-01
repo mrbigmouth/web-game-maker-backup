@@ -33,4 +33,13 @@
       text-align: center;
     }
   }
+  label {
+    margin: 0;
+  }
+  .moveable {
+    cursor: move;
+  }
+  .clickable {
+    cursor: pointer;
+  }
 </style>
