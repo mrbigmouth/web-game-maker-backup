@@ -12,6 +12,7 @@ module.exports = {
   },
   globals: {
     Set: true,
+    Promise: true,
   },
   // required to lint *.vue files
   plugins: [
