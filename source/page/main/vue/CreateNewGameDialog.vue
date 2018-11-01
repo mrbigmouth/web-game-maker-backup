@@ -98,7 +98,7 @@
     data() {
       return {
         gameName: '',
-        selectedTemplate: {},
+        selectedTemplate: templateList[0],
         templateFolderList: templateFolderList,
         templateList: templateList,
       };
@@ -112,7 +112,7 @@
           this.selectedTemplate = selectedTemplate;
         }
         else {
-          this.selectedTemplate = {};
+          this.selectedTemplate = templateList[0];
         }
       },
       handleCreateGame() {
