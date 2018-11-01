@@ -9,7 +9,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
 
 const webpackConfig = {
   // mode: 'production',
@@ -128,7 +128,8 @@ const webpackConfig = {
     }]),
     new FriendlyErrorsPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'main.css'
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     }),
   ],
 };
