@@ -117,8 +117,8 @@
       },
       handleCreateGame() {
         const newGame = {
-          name: this.gameName,
           ...this.selectedTemplate,
+          name: this.gameName,
         };
         this.$store.dispatch('maker/createGame', newGame).then((gid) => {
           this.hideCreateGameDialog();
