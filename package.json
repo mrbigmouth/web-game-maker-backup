@@ -28,11 +28,11 @@
     "@fortawesome/free-regular-svg-icons": "5.3.1",
     "@fortawesome/free-solid-svg-icons": "5.3.1",
     "@fortawesome/vue-fontawesome": "0.1.1",
-    "moment": "2.22.2",
-    "vue": "2.5.17",
-    "vue-form": "4.9.0",
+    "moment": "2.23.0",
+    "vue": "2.5.22",
+    "vue-form": "4.10.1",
     "vuex": "3.0.1",
-    "vuex-i18n": "1.10.5"
+    "vuex-i18n": "1.11.0"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -56,9 +56,9 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "url-loader": "1.1.1",
-    "vue-loader": "15.4.1",
+    "vue-loader": "15.5.1",
     "vue-style-loader": "4.1.2",
-    "vue-template-compiler": "2.5.17",
+    "vue-template-compiler": "2.5.22",
     "webpack": "4.17.1",
     "webpack-bundle-analyzer": "2.13.1",
     "ws": "6.0.0"
