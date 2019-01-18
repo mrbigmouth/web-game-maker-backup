@@ -325,6 +325,11 @@ wsServer.on('connection', (ws) => {
       };
       ws.send(JSON.stringify(message));
     }
+    fs.writeFile(
+      path.join(ROOTPATH, 'source', 'chrome', 'imports', 'data.json'),
+      JSON.stringify(data, null, 2),
+      () => {},
+    );
   });
 });
 function copyDataToPathHash(data, dataPathHash, prefix = '/') {
