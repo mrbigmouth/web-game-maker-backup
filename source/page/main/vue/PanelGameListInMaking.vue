@@ -1,48 +1,59 @@
 <template>
   <collapse-card @open="loadBriefGameList">
-    <span slot="title">{{$t('gameListInMaking')}}</span>
+    <span slot="title">{{ $t('gameListInMaking') }}</span>
     <div slot="body">
       <table class="table table-bordered">
         <caption class="text-right">
           <button
-            @click="showCreateGameDialog"
             class="btn btn-primary btn-sm"
             type="button"
+            @click="showCreateGameDialog"
           >
-            {{$t('createNewGame')}}
+            {{ $t('createNewGame') }}
           </button>
         </caption>
         <thead>
           <tr>
-            <th>{{$t('gameName')}}</th>
+            <th>{{ $t('gameName') }}</th>
             <th style="width: 200px;">
-              {{$t('lastOpenTime')}}
+              {{ $t('lastOpenTime') }}
               <icon icon="sort-amount-down" />
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="game in gameList(displayRows)">
+          <tr
+            v-for="game in gameList(displayRows)"
+            :key="game.id"
+          >
             <td>
               <a
-                @click="updateGameOpenTime(game.id)"
                 :href="`./makerMain.html?gid=${game.id}`"
                 target="_blank"
+                @click="updateGameOpenTime(game.id)"
               >
-                {{game.name}}
+                {{ game.name }}
               </a>
             </td>
-            <th>{{game.lastOpenTime | msToDateTime}}</th>
+            <th>{{ game.lastOpenTime | msToDateTime }}</th>
           </tr>
           <tr v-if="gameList(displayRows).length === 0">
-            <td colspan="2">{{$t('noAnyData')}}</td>
+            <td colspan="2">
+              {{ $t('noAnyData') }}
+            </td>
           </tr>
         </tbody>
         <tfoot v-if="canSeeMore(displayRows)">
           <tr>
-            <td class="text-right" colspan="2">
-              <a href="#" @click.prevent="seeMore">
-                {{$t('seeMore')}}
+            <td
+              class="text-right"
+              colspan="2"
+            >
+              <a
+                href="#"
+                @click.prevent="seeMore"
+              >
+                {{ $t('seeMore') }}
               </a>
             </td>
           </tr>
@@ -59,6 +70,9 @@
   window.mapMutations = mapMutations;
   export default {
     name: 'PanelGameListInDeveloping',
+    components: {
+      'collapse-card': CollapseCard,
+    },
     data() {
       return {
         displayRows: 3,
@@ -81,9 +95,6 @@
       ...mapMutations('page', [
         'showCreateGameDialog',
       ]),
-    },
-    components: {
-      'collapse-card': CollapseCard,
     },
   };
 </script>

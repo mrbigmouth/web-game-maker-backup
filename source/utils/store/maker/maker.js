@@ -4,8 +4,12 @@ import { gameBriefPattern, gameDetailPattern } from './patterns';
 export default {
   namespaced: true,
   state: {
+    // 已存在的開發中遊戲的簡單資料列表
     brief: [],
-    detail: [],
+    // 已存在的開發中遊戲的全部資料列表
+    detail: {},
+    // 已存在的開發中遊戲的開發中已異動但尚未存入detail的資料
+    editing: {},
   },
   modules: {
   },
@@ -26,42 +30,41 @@ export default {
       };
     },
   },
-  mutations: {
-  },
   actions: {
     loadBriefGameList({ dispatch }) {
       dispatch('read', ['/maker/brief'], {
         root: true,
       });
     },
+    loadDetailGame({ dispatch }, gid) {
+      dispatch('read', ['/maker/detail/' + gid], {
+        root: true,
+      });
+    },
     updateGameOpenTime({ state, dispatch }, gid) {
       check(gid, gameBriefPattern.id);
       const briefList = state.brief.slice();
-      const detailList = state.detail.slice();
-      const updateGameIndex = briefList.findIndex((gameBrief) => {
+      const updateBriefIndex = briefList.findIndex((gameBrief) => {
         return gameBrief.id === gid;
       });
+      const gameDetail = state.detail[gid];
       const lastOpenTime = Date.now();
       const briefGame = {
-        ...briefList[updateGameIndex],
+        ...briefList[updateBriefIndex],
         lastOpenTime,
       };
-      briefList.splice(updateGameIndex, 1);
+      briefList.splice(updateBriefIndex, 1);
       briefList.unshift(briefGame);
-      const detailGame = {
-        ...detailList[updateGameIndex],
-        lastOpenTime,
-      };
-      detailList.splice(updateGameIndex, 1);
-      detailList.unshift(detailGame);
+      gameDetail.lastOpenTime = lastOpenTime;
 
       return dispatch('update', {
         '/maker/brief': briefList,
-        '/maker/detail': detailList,
+        [`/maker/detail/${gid}`]: gameDetail,
       }, {
         root: true,
       });
     },
+    // 建立新的編輯遊戲
     createGame({ state, dispatch }, data = {}) {
       const newGameBrief = {};
       const newGameDetail = {};
@@ -79,25 +82,64 @@ export default {
       const lastOpenTime = Date.now();
       newGameBrief.id = id;
       newGameBrief.lastOpenTime = lastOpenTime;
-      newGameDetail.id = id;
-      newGameDetail.lastOpenTime = lastOpenTime;
-
       const briefList = [
         newGameBrief,
         ...state.brief,
       ];
-      const detailList = [
-        newGameDetail,
-        ...state.detail,
-      ];
+
+      newGameDetail.id = id;
+      newGameDetail.lastOpenTime = lastOpenTime;
 
       return dispatch('update', {
         '/maker/brief': briefList,
-        '/maker/detail': detailList,
+        [`/maker/detail/${newGameDetail.id}`]: newGameDetail,
       }, {
         root: true,
-      }).then(() => {
+      })
+      .then(() => {
         return id;
+      });
+    },
+    // 開始編輯指定遊戲
+    startEditGame({ dispatch, rootState }, { gid }) {
+      // 從共用資料中心讀取該遊戲的detail資料進本地store。
+      dispatch('read', [
+        `/maker/detail/${gid}`
+      ], {
+        root: true,
+      })
+      // 從共用資料中心讀取該遊戲的editing資料進本地store。
+      .then((detailResult) => {
+        const editingKey = `/maker/editing/${gid}`;
+        return dispatch('read', [editingKey], {
+          root: true,
+        })
+        .then((editingResult) => {
+          return {
+            detail: detailResult[`/maker/detail/${gid}`],
+            editing: editingResult[editingKey],
+          };
+        });
+      })
+      // 之後檢查共用資料中心是否已存在該遊戲的editing資料
+      .then((result) => {
+        // 若共用資料中心已存在editing資料，在本地store中的page state下建立detail資料與editing資料的待編輯資料
+        if (result.editing) {
+          rootState.page.game = Object.assign({}, result.detail, result.editing);
+
+          return rootState.page.game;
+        }
+        // 否則在共用資料中心建立一個空白的editing資料
+        else {
+          dispatch('update', {
+            [`/maker/editing/${gid}`]: {},
+          }, {
+            root: true,
+          })
+          .then(() => {
+            return {};
+          });
+        }
       });
     },
   },

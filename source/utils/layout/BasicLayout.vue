@@ -14,12 +14,12 @@
 
   export default {
     name: 'BasicLayout',
-    created() {
-      this.$store.registerModule('page/confirmDialog', ConfirmDialogStore);
-    },
     components: {
       'confirm-dialog': ConfirmDialog,
       'error-dialog': ErrorDialog,
+    },
+    created() {
+      this.$store.registerModule('page/confirmDialog', ConfirmDialogStore);
     },
   };
 </script>

@@ -1,49 +1,51 @@
 <template>
   <div class="modal fade show d-block">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            {{$t('createNewGame')}}
+            {{ $t('createNewGame') }}
           </h5>
           <button
-            @click="hideCreateGameDialog"
-            type="button"
             class="close"
+            type="button"
+            @click="hideCreateGameDialog"
           >
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="createNewGameName">{{$t('newGameName')}}</label>
+            <label for="createNewGameName">
+              {{ $t('newGameName') }}
+            </label>
             <input
+              id="createNewGameName"
               v-model="gameName"
               :placeholder="$t('pleaseEnterNewGameName')"
-              id="createNewGameName"
               type="text"
               class="form-control"
             />
           </div>
           <collapse-card>
-            <span slot="title">{{$t('selectGameTemplate')}}</span>
+            <span slot="title">{{ $t('selectGameTemplate') }}</span>
             <folder-file-tree-view
               slot="body"
-              :folderList="templateFolderList"
-              :fileList="templateList"
-              :defaultOpenFolder="false"
+              :folder-list="templateFolderList"
+              :file-list="templateList"
+              :default-open-folder="false"
               :draggable="false"
             >
               <div
+                v-if="data.id !== ''"
                 slot="folder"
                 slot-scope="{ data }"
-                v-if="data.id !== ''"
                 class="text-info clickable"
               >
                 <icon
                   :icon="data.isOpen ? 'folder-open' : 'folder'"
                 />
-                {{data.source.name}}
+                {{ data.source.name }}
               </div>
               <div
                 slot="file"
@@ -51,15 +53,15 @@
               >
                 <label class="form-check">
                   <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="template"
                     :value="data.source"
                     :checked="selectedTemplate === data.source"
                     @change="handleSelectTemplate($event.currentTarget.checked, data.source)"
-                    type="checkbox"
-                    name="template"
-                    class="form-check-input"
                   />
                   <span class="form-check-label">
-                    {{data.source.name}}
+                    {{ data.source.name }}
                   </span>
                 </label>
               </div>
@@ -68,18 +70,18 @@
         </div>
         <div class="modal-footer">
           <button
-            @click="hideCreateGameDialog"
+            class="btn btn-primary"
             type="button"
-            class="btn btn-secondary"
+            @click="handleCreateGame"
           >
-            {{$t('cancel')}}
+            {{ $t('createNewGame') }}
           </button>
           <button
-            @click="handleCreateGame"
+            class="btn btn-secondary"
             type="button"
-            class="btn btn-primary"
+            @click="hideCreateGameDialog"
           >
-            {{$t('createNewGame')}}
+            {{ $t('cancel') }}
           </button>
         </div>
       </div>
@@ -95,6 +97,10 @@
 
   export default {
     name: 'CreateNewGameDialog',
+    components: {
+      'collapse-card': CollapseCard,
+      'folder-file-tree-view': FolderFileTreeView,
+    },
     data() {
       return {
         gameName: '',
@@ -125,10 +131,6 @@
           window.open(`./makerMain.html?gid=${gid}`);
         });
       },
-    },
-    components: {
-      'collapse-card': CollapseCard,
-      'folder-file-tree-view': FolderFileTreeView,
     },
   };
 </script>

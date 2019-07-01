@@ -6,6 +6,8 @@ const id = random();
 let port;
 
 // initialize
+let initialized = false;
+let beforeInitializeMessageList = [];
 export function initialize(callback) {
   const stamp = random();
   const message = {
@@ -23,6 +25,10 @@ export function initialize(callback) {
     if (message.stamp === stamp) {
       callback(message.data);
       port.removeEventListener('message', initializeDone);
+      initialized = true;
+      beforeInitializeMessageList.forEach((message) => {
+        port.send(message);
+      });
     }
   }
   port.addEventListener('message', initializeDone);
@@ -77,7 +83,12 @@ export function sendRead(pathList, callback) {
     pathList,
     stamp,
   };
-  port.send(JSON.stringify(message));
+  if (initialized) {
+    port.send(JSON.stringify(message));
+  }
+  else {
+    beforeInitializeMessageList.push(JSON.stringify(message));
+  }
 }
 
 export function onUpdate(updateHandler) {

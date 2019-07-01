@@ -1,12 +1,21 @@
 <template>
   <div
+    class="file d-flex"
     :draggable="draggable"
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"
-    class="file d-flex"
   >
-    <span v-for="n in needPaddingLeft" class="padding"></span>
-    <span v-if="data.deepLevel" class="padding">└</span>
+    <span
+      v-for="n in needPaddingLeft"
+      :key="n"
+      class="padding"
+    />
+    <span
+      v-if="data.deepLevel"
+      class="padding"
+    >
+      └
+    </span>
     <span class="flex-fill">
       <slot
         name="file"

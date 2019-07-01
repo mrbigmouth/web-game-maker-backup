@@ -1,9 +1,9 @@
 // https://eslint.org/docs/user-guide/configuring
 module.exports = {
   root: true,
-  extends: 'eslint:recommended',
-  parser: 'babel-eslint',
+  extends: 'plugin:vue/recommended',
   parserOptions: {
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   env: {
@@ -24,5 +24,17 @@ module.exports = {
     'arrow-body-style': ['error', 'always'],
     'no-console': ['warn'],
     'no-debugger': ['warn'],
+    'vue/html-self-closing': [
+      'warn',
+      {
+        'html': {
+          'void': 'always',
+          'normal': 'always',
+          'component': 'always',
+      },
+      'svg': 'always',
+      'math': 'always',
+      },
+    ],
   }
-}
+};

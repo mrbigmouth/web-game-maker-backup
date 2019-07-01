@@ -45,20 +45,38 @@ export default function initializePage(options) {
 
   new Vue({
     store,
+    data() {
+      const search = location.search.substring(1);
+      if (search) {
+        const decodeSearch = decodeURI(search)
+          .replace(/"/g, '\\"')
+          .replace(/&/g, '","')
+          .replace(/=/g,'":"');
+
+        return JSON.parse('{"' + decodeSearch + '"}');
+      }
+
+      return {};
+    },
     computed: {
       documentTitle: options.documentTitle || (() => {
         return 'Web Game Maker';
       }),
     },
-    created: options.created,
     watch: {
       documentTitle(documentTitle) {
         document.title = documentTitle;
       },
     },
+    created: options.created,
     render(createElement) {
       return createElement(Layout, [
-        createElement(options.contain)
+        createElement(options.contain, {
+          props: {
+            gid: this.gid,
+            pid: this.pid,
+          },
+        }),
       ]);
     },
   })

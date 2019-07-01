@@ -7,6 +7,8 @@ function random() {
 const id = random();
 
 // initialize by single message
+let initialized = false;
+let beforeInitializeMessageList = [];
 export function initialize(callback) {
   const message = {
     source: id,
@@ -14,6 +16,10 @@ export function initialize(callback) {
   };
   chrome.runtime.sendMessage(message, function(response) {
     callback(response.data);
+    initialized = true;
+    beforeInitializeMessageList.forEach((message) => {
+      port.send(message);
+    });
   });
   // auto send save message before window unload
   if (window) {
@@ -69,7 +75,12 @@ export function sendRead(pathList, callback) {
     pathList,
     stamp,
   };
-  port.postMessage(message);
+  if (initialized) {
+    port.postMessage(message);
+  }
+  else {
+    beforeInitializeMessageList.push(message);
+  }
 }
 
 export function onUpdate(updateHandler) {

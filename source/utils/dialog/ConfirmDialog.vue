@@ -3,40 +3,51 @@
     v-if="isDisplayConfirmDialog"
     class="modal fade show d-block"
   >
-    <div class="modal-backdrop fade show" style="z-index: 1042;"></div>
-    <div class="modal-dialog" style="z-index: 1043;">
+    <div
+      class="modal-backdrop fade show"
+      style="z-index: 1042;"
+    />
+    <div
+      class="modal-dialog"
+      style="z-index: 1043;"
+    >
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{confirmDialogTitle}}</h5>
+          <h5 class="modal-title">
+            {{ confirmDialogTitle }}
+          </h5>
         </div>
         <div class="modal-body">
-          <icon v-if="confirmDialogIcon" :icon="confirmDialogIcon" />
-          <span v-html="confirmDialogMessage"></span>
+          <icon
+            v-if="confirmDialogIcon"
+            :icon="confirmDialogIcon"
+          />
+          <span v-html="confirmDialogMessage" />
         </div>
         <div class="modal-footer">
           <a
             v-if="onNo"
-            @click.prevent="handleYes"
             class="btn btn-primary"
             href="#"
+            @click.prevent="handleYes"
           >
-            {{$t('yes')}}
+            {{ $t('yes') }}
           </a>
           <a
             v-if="onNo"
-            @click.prevent="handleNo"
             class="btn btn-primary"
             href="#"
+            @click.prevent="handleNo"
           >
-            {{$t('no')}}
+            {{ $t('no') }}
           </a>
           <a
             v-else
-            @click.prevent="handleYes"
             class="btn btn-primary"
             href="#"
+            @click.prevent="handleYes"
           >
-            {{$t('ok')}}
+            {{ $t('ok') }}
           </a>
         </div>
       </div>

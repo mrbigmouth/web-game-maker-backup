@@ -1,12 +1,46 @@
 {
   "i18n": {
-    "locale": ""
+    "locale": "zh-tw"
   },
-  "sync": {
-  },
+  "sync": {},
   "maker": {
-    "brief": [],
-    "detailList": []
+    "brief": [
+      {
+        "id": 0,
+        "name": "test",
+        "lastOpenTime": 1547632359430
+      }
+    ],
+    "detail": {
+      "0": {
+        "id": 0,
+        "name": "test",
+        "lastOpenTime": 1547632359430,
+        "blockList": [],
+        "processFolder": [],
+        "processList": [],
+        "variableFolder": [
+          {
+            "id": "1",
+            "folder": "",
+            "name": "暫存變數"
+          }
+        ],
+        "variableList": [
+          {
+            "id": "1",
+            "folder": "1",
+            "name": "迴圈計數器"
+          }
+        ],
+        "mediaFolder": [],
+        "mediaList": [],
+        "database": []
+      }
+    },
+    "editing": {
+      "0": {}
+    }
   },
   "player": {}
 }

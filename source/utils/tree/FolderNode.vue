@@ -1,6 +1,7 @@
 <template>
   <div class="folder-wrapper">
     <div
+      class="folder clickable d-flex"
       :draggable="draggable"
       @dragstart="handleDragStart({
         type: 'folder',
@@ -10,10 +11,18 @@
       @drop="handleDrop"
       @dragend="handleDragEnd"
       @click.prevent="toggleOpen"
-      class="folder clickable d-flex"
     >
-      <span v-for="n in needPaddingLeft" class="padding"></span>
-      <span v-if="data.deepLevel" class="padding">└</span>
+      <span
+        v-for="n in needPaddingLeft"
+        :key="n"
+        class="padding"
+      />
+      <span
+        v-if="data.deepLevel"
+        class="padding"
+      >
+        └
+      </span>
       <span class="flex-fill">
         <slot
           name="folder"
@@ -23,11 +32,11 @@
     </div>
     <div v-if="isOpen">
       <component
+        :is="treeData.children ? 'folderNode' : 'fileNode'"
         v-for="treeData of data.children"
         :key="treeData.id"
-        :is="treeData.children ? 'folderNode' : 'fileNode'"
         :data="treeData"
-        :draggingFolderFile="draggingFolderFile"
+        :dragging-folder-file="draggingFolderFile"
         :draggable="draggable"
         @dragstart="handleDragStart"
         @dragend="handleDragEnd"
@@ -62,6 +71,9 @@
 
   export default {
     name: 'FolderNode',
+    components: {
+      fileNode: FileNode,
+    },
     props: {
       data: {
         validator: folderDataValidator,
@@ -115,9 +127,6 @@
       handleDragEnd() {
         this.$emit('dragend');
       },
-    },
-    components: {
-      fileNode: FileNode,
     },
   };
 

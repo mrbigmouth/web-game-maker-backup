@@ -3,6 +3,7 @@ export const i18nTw = {
   ...i18nEn,
   // page name list
   pageNameMain: '主頁',
+  pageNameMakerMain: '開發主頁',
   // page - main
   gameListInMaking: '開發中的遊戲列表',
   basicSettings: '基本設定',
@@ -11,18 +12,25 @@ export const i18nTw = {
   gameName: '遊戲名稱',
   createNewGame: '建立新遊戲',
   // page - main - createNewGameDialog
-  selectGameTemplate: '選取遊戲模版',
+  selectGameTemplate: '選取遊戲範本',
   newGameName: '遊戲名稱',
   pleaseEnterNewGameName: '請輸入要建立的新遊戲名稱',
+  // page - markerMain
+  variableManage: '變數管理',
   // utils table columns
   lastOpenTime: '最後開啟時間',
-  // utils
+  seeMore: '檢視更多...',
+  noAnyData: '目前沒有任何資料！',
+  // utils buttons
   yes: '是',
   no: '否',
   ok: 'OK',
   cancel: '取消',
-  seeMore: '檢視更多...',
-  noAnyData: '目前沒有任何資料！',
+  // utils tree
+  createFolder: '在此目錄下建立新目錄',
+  createNewItem: '在此目錄下建立新項目',
+  destroyFolder: '刪除此目錄',
+  destroyItem: '刪除此項目',
   // error code
   error: '錯誤',
   unknownError: '未知的錯誤！',

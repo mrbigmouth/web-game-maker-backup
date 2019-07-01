@@ -2,7 +2,7 @@
   <form>
     <folder-node
       :data="treeData"
-      :draggingFolderFile="draggingFolderFile"
+      :dragging-folder-file="draggingFolderFile"
       :draggable="draggable"
       @dragstart="handleDragStart"
       @dragend="handleDragEnd"
@@ -33,10 +33,12 @@
 <script>
   import { inputDataListValidator } from './validator';
   import FolderNode from './FolderNode';
-  import FileNode from './FileNode';
 
   export default {
     name: 'FolderFileTreeView',
+    components: {
+      folderNode: FolderNode,
+    },
     props: {
       folderList: {
         validator: inputDataListValidator,
@@ -171,10 +173,6 @@
       handleSelectItem(data) {
         this.$emit('selectItem', data);
       },
-    },
-    components: {
-      folderNode: FolderNode,
-      fileNode: FileNode,
     },
   };
 </script>

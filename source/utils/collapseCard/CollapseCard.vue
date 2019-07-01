@@ -1,18 +1,20 @@
 <template>
   <div class="card">
-    <div @click="toggle" class="card-header">
+    <div
+      class="card-header"
+      @click="toggle"
+    >
       <h5 class="mb-0">
-        <slot name="title"></slot>
+        <slot name="title" />
         <i
           :class="['fa', collapse ? 'fa-folder' : 'fa-folder-open']"
           aria-hidden="true"
-        >
-        </i>
+        />
       </h5>
     </div>
     <div :class="['collapse', collapse ? '' : 'show']">
       <div class="card-body">
-        <slot name="body"></slot>
+        <slot name="body" />
       </div>
     </div>
   </div>

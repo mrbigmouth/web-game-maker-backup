@@ -1,42 +1,35 @@
+import { gameDetailPattern } from 'utils/store/maker/patterns';
+
 const sourceTemplateList = [
   {
-    name: '空白模板',
+    name: '空白範本',
     folderList: [],
-    blockFolder: [],
-    blockList: [],
-    processFolder: [],
-    processList: [],
-    variableFolder: [],
-    variableList: [],
-    mediaFolder: [],
-    mediaList: [],
-    database: [],
   },
   {
-    name: 'MUD',
-    folderList: ['文字類型遊戲模板'],
-    blockFolder: [],
-    blockList: [],
-    processFolder: [],
-    processList: [],
-    variableFolder: [],
-    variableList: [],
-    mediaFolder: [],
-    mediaList: [],
-    database: [],
+    name: 'MUD遊戲範本',
+    folderList: [
+      '文字類型遊戲',
+      '線上遊戲',
+      '多人線上遊戲',
+    ],
+    variableFolder: [
+      {
+        id: '1',
+        folder: '',
+        name: '暫存變數',
+      }
+    ],
+    variableList: [
+      {
+        id: '1',
+        folder: '1',
+        name: '迴圈計數器',
+      }
+    ],
   },
   {
-    name: 'RAGS',
-    folderList: ['文字類型遊戲模板'],
-    blockFolder: [],
-    blockList: [],
-    processFolder: [],
-    processList: [],
-    variableFolder: [],
-    variableList: [],
-    mediaFolder: [],
-    mediaList: [],
-    database: [],
+    name: 'RAGS遊戲範本',
+    folderList: ['文字類型遊戲'],
   },
 ];
 
@@ -47,24 +40,58 @@ function getFolderId(folder) {
 
 export const templateList = [];
 let idCount = 0;
-sourceTemplateList.forEach((template) => {
-  if (template.folderList.length) {
-    template.folderList.forEach((folder) => {
+sourceTemplateList.forEach((templateSource) => {
+  if (templateSource.folderList.length) {
+    templateSource.folderList.forEach((folder) => {
       folderSet.add(folder);
-      templateList.push({
+      const templateData = {
         id: '' + idCount,
         folder: getFolderId(folder),
-        name: template.name,
+      };
+      Object.keys(gameDetailPattern).forEach((patternKey) => {
+        if (templateData[patternKey]) {
+          return;
+        }
+        if (templateSource[patternKey]) {
+          templateData[patternKey] = templateSource[patternKey];
+        }
+        else {
+          const pattern = gameDetailPattern[patternKey];
+          if (Array.isArray(pattern)) {
+            templateData[patternKey] = [];
+          }
+          else if (pattern === String) {
+            templateData[patternKey] = '';
+          }
+        }
       });
+      templateList.push(templateData);
       idCount += 1;
     });
   }
   else {
-    templateList.push({
+    const templateData = {
       id: '' + idCount,
       folder: '',
-      name: template.name,
+    };
+    Object.keys(gameDetailPattern).forEach((patternKey) => {
+      if (templateData[patternKey]) {
+        return;
+      }
+      if (templateSource[patternKey]) {
+        templateData[patternKey] = templateSource[patternKey];
+      }
+      else {
+        const pattern = gameDetailPattern[patternKey];
+        if (Array.isArray(pattern)) {
+          templateData[patternKey] = [];
+        }
+        else if (pattern === String) {
+          templateData[patternKey] = '';
+        }
+      }
     });
+    templateList.push(templateData);
     idCount += 1;
   }
 });
