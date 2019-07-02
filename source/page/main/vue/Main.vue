@@ -39,6 +39,7 @@
   import PanelGameListInMaking from './PanelGameListInMaking';
   import CollapseCard from 'utils/collapseCard/CollapseCard';
   import CreateNewGameDialog from './CreateNewGameDialog';
+  import { i18nLocalization } from 'utils/i18n/i18n';
 
   export default {
     name: 'Main',
@@ -57,5 +58,6 @@
     },
     methods: {
     },
+    ...i18nLocalization('main'),
   };
 </script>

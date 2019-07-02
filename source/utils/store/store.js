@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { initialize, sendUpdate, sendRead, onUpdate } from 'storeHelpers';
+import { store as i18n } from 'utils/i18n/i18n';
 import maker from './maker/maker';
 
 Vue.use(Vuex);
@@ -30,6 +31,7 @@ export const store = new Vuex.Store({
   ],
   modules: {
     maker,
+    i18n,
   },
   state: {
     errorList: [],

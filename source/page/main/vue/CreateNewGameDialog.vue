@@ -94,6 +94,7 @@
   import { templateList, templateFolderList } from '../gameTemplate';
   import CollapseCard from 'utils/collapseCard/CollapseCard';
   import FolderFileTreeView from 'utils/tree/FolderFileTree';
+  import { i18nLocalization } from 'utils/i18n/i18n';
 
   export default {
     name: 'CreateNewGameDialog',
@@ -132,5 +133,6 @@
         });
       },
     },
+    ...i18nLocalization('main'),
   };
 </script>

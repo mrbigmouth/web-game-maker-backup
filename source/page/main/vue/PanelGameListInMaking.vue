@@ -1,6 +1,6 @@
 <template>
   <collapse-card @open="loadBriefGameList">
-    <span slot="title">{{ $t('gameListInMaking') }}</span>
+    <span slot="title">{{ $t('gameInDeveloping') }}</span>
     <div slot="body">
       <table class="table table-bordered">
         <caption class="text-right">
@@ -66,6 +66,7 @@
 <script>
   import { mapGetters, mapMutations, mapActions } from 'vuex';
   import CollapseCard from 'utils/collapseCard/CollapseCard';
+  import { i18nLocalization } from 'utils/i18n/i18n';
 
   window.mapMutations = mapMutations;
   export default {
@@ -96,5 +97,6 @@
         'showCreateGameDialog',
       ]),
     },
+    ...i18nLocalization('main'),
   };
 </script>

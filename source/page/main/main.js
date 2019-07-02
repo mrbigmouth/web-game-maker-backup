@@ -4,8 +4,8 @@ import pageStore from './store';
 
 initializePage({
   documentTitle() {
-    return this.$t('documentTitle', {
-      pageName: this.$t('pageNameMain'),
+    return this.$i18n.t('documentTitle', {
+      pageName: this.$i18n.t('componentBasedLocalization.main.title'),
     });
   },
   created() {
