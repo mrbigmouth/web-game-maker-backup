@@ -20,7 +20,7 @@ export const i18nCn = {
   e00000: '无法预期的核心错误！',
   e00001: '无法读取资料路径「{path}」！',
   componentBasedLocalization: {
-    main: {
+    home: {
       title: '首页',
       gameInDeveloping: '开发中的游戏列表',
       basicSettings: '基本设定',

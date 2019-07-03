@@ -6,7 +6,7 @@
   // import PanelVariableManage from './PanelVariableManage';
 
   export default {
-    name: 'MakerMain',
+    name: 'Project',
     components: {
       // 'panel-variable-manage': PanelVariableManage,
     },

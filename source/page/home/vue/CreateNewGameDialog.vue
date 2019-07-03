@@ -129,10 +129,10 @@
         };
         this.$store.dispatch('maker/createGame', newGame).then((gid) => {
           this.hideCreateGameDialog();
-          window.open(`./makerMain.html?gid=${gid}`);
+          window.open(`./project.html?gid=${gid}`);
         });
       },
     },
-    ...i18nLocalization('main'),
+    ...i18nLocalization('home'),
   };
 </script>

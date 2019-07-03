@@ -1,3 +1,3 @@
 chrome.browserAction.onClicked.addListener(() => {
-  window.open(chrome.extension.getURL('main.html'));
+  window.open(chrome.extension.getURL('home.html'));
 });

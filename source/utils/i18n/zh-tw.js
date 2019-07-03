@@ -20,7 +20,7 @@ export const i18nTw = {
   e00000: '無法預期的核心錯誤！',
   e00001: '無法讀取資料路徑「{path}」！',
   componentBasedLocalization: {
-    main: {
+    home: {
       title: '首頁',
       gameInDeveloping: '開發中的遊戲列表',
       basicSettings: '基本設定',

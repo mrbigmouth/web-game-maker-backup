@@ -225,12 +225,18 @@ const pathToDataJson = path.join(ROOTPATH, 'source', 'chrome', 'imports', 'data.
 let data;
 function loadData() {
   console.log('loading data...');
-  try {
-    const dataText = fs.readFileSync(pathToDataJson);
-    data = JSON.parse(dataText);
-  }
-  catch(e) {
-    console.error(e);
+  const dataText = fs.readFileSync(pathToDataJson, {
+    encoding: 'utf8',
+  });
+  if (dataText) {
+    try {
+      data = JSON.parse(dataText);
+    }
+    catch(e) {
+      console.error(e);
+      console.log('!');
+      console.log(dataText);
+    }
   }
 }
 fs.watch(pathToDataJson, () => {

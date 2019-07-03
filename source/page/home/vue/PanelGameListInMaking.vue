@@ -28,7 +28,7 @@
           >
             <td>
               <a
-                :href="`./makerMain.html?gid=${game.id}`"
+                :href="`./project.html?gid=${game.id}`"
                 target="_blank"
                 @click="updateGameOpenTime(game.id)"
               >
@@ -97,6 +97,6 @@
         'showCreateGameDialog',
       ]),
     },
-    ...i18nLocalization('main'),
+    ...i18nLocalization('home'),
   };
 </script>

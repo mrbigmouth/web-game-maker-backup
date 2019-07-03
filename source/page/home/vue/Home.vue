@@ -42,7 +42,7 @@
   import { i18nLocalization } from 'utils/i18n/i18n';
 
   export default {
-    name: 'Main',
+    name: 'Home',
     components: {
       'panel-game-list-in-making': PanelGameListInMaking,
       'collapse-card': CollapseCard,
@@ -58,6 +58,6 @@
     },
     methods: {
     },
-    ...i18nLocalization('main'),
+    ...i18nLocalization('home'),
   };
 </script>
