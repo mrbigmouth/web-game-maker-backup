@@ -66,6 +66,7 @@ export function sendUpdate(payload, callback) {
   };
   port.send(JSON.stringify(message));
 }
+
 export function sendRead(pathList, callback) {
   const stamp = random();
   function onReadDone(e) {
@@ -82,6 +83,30 @@ export function sendRead(pathList, callback) {
     source: id,
     pathList,
     stamp,
+  };
+  if (initialized) {
+    port.send(JSON.stringify(message));
+  }
+  else {
+    beforeInitializeMessageList.push(JSON.stringify(message));
+  }
+}
+
+export function sendCall(helper, callback) {
+  const stamp = random();
+  function onCallDone(e) {
+    const message = JSON.parse(e.data);
+    if (message.stamp === stamp) {
+      port.removeEventListener('message', onCallDone);
+      callback(message);
+    }
+  }
+  port.addEventListener('message', onCallDone);
+
+  const message = {
+    source: id,
+    stamp,
+    ...helper,
   };
   if (initialized) {
     port.send(JSON.stringify(message));

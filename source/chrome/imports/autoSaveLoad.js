@@ -1,6 +1,7 @@
-import data from './data.json';
+import inMemoryData from './inMemoryData';
 // auto load when chrome initialize
 chrome.runtime.onStartup.addListener(() => {
+  const data = inMemoryData.data;
   chrome.storage.local.get(null, (savedData) => {
     Object.keys(savedData).forEach((savedKey) => {
       data[savedKey] = savedData[savedKey];
@@ -19,32 +20,16 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 function saveAllData() {
-  chrome.storage.local.set(data);
+  chrome.storage.local.set(inMemoryData.data);
 }
 
 // auto load i18n/sync data when each children page send initialize message
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'initialize') {
-    const dataPathHash = {};
-    copyDataToPathHash({
-      i18n: data.i18n,
-      sync: data.sync,
-    }, dataPathHash);
     sendResponse({
-      data: dataPathHash,
+      data: inMemoryData.data,
     });
 
     return true;
   }
 });
-function copyDataToPathHash(data, dataPathHash, prefix = '/') {
-  Object.keys(data).forEach((key) => {
-    const value = data[key];
-    if (Object.prototype.toString.call(value) === '[object Object]') {
-      copyDataToPathHash(value, dataPathHash, prefix + key + '/');
-    }
-    else {
-      dataPathHash[prefix + key] = value;
-    }
-  });
-}

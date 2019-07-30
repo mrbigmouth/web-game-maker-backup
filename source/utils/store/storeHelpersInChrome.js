@@ -10,25 +10,25 @@ const id = random();
 let initialized = false;
 let beforeInitializeMessageList = [];
 export function initialize(callback) {
-  const message = {
+  const initializeMessage = {
     source: id,
     type: 'initialize',
   };
-  chrome.runtime.sendMessage(message, function(response) {
+  chrome.runtime.sendMessage(initializeMessage, function(response) {
     callback(response.data);
     initialized = true;
     beforeInitializeMessageList.forEach((message) => {
-      port.send(message);
+      chrome.runtime.sendMessage(message);
     });
   });
   // auto send save message before window unload
   if (window) {
     window.addEventListener('beforeunload', () => {
-      const message = {
+      const unloadMessage = {
         source: id,
         type: 'save',
       };
-      chrome.runtime.sendMessage(message);
+      chrome.runtime.sendMessage(unloadMessage);
 
       return true;
     });
@@ -74,6 +74,29 @@ export function sendRead(pathList, callback) {
     source: id,
     pathList,
     stamp,
+  };
+  if (initialized) {
+    port.postMessage(message);
+  }
+  else {
+    beforeInitializeMessageList.push(message);
+  }
+}
+
+export function sendCall(helper, callback) {
+  const stamp = random();
+  function onCallDone(message) {
+    if (message.stamp === stamp) {
+      port.onMessage.removeListener(onCallDone);
+      callback(message);
+    }
+  }
+  port.onMessage.addListener(onCallDone);
+
+  const message = {
+    source: id,
+    stamp,
+    ...helper,
   };
   if (initialized) {
     port.postMessage(message);

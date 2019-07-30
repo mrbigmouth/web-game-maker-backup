@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { initialize, sendUpdate, sendRead, onUpdate } from 'storeHelpers';
+import { initialize, sendUpdate, sendRead, onUpdate, sendCall } from 'storeHelpers';
 import { store as i18n } from 'utils/i18n/i18n';
 import maker from './maker/maker';
 
@@ -10,20 +10,26 @@ export const store = new Vuex.Store({
   strict: false,
   plugins: [
     function plugin(store) {
-      // initialize sync/i18n data by single message
+      // initialize data by single message
       initialize((data) => {
-        if (! data['/i18n/locale']) {
+        // if no initialize i18n setting, set i18n by browser Language
+        if (! (data.i18n && data.i18n.locale)) {
           const userLanguage = (navigator.language || navigator.browserLanguage).toLowerCase();
           if (userLanguage === 'zh-tw' || userLanguage === 'zh-cn') {
-            data['/i18n/locale'] = userLanguage;
+            data.i18n = {
+              locale: userLanguage,
+            };
           }
           else {
-            data['/i18n/locale'] = 'en';
+            data.i18n = {
+              locale: 'en',
+            };
           }
         }
+        // update data
         store.commit('update', data);
       });
-      // update sync/i18n data by long-lived connection 
+      // update data by long-lived connection 
       onUpdate((payload) => {
         store.commit('update', payload);
       });
@@ -99,7 +105,6 @@ export const store = new Vuex.Store({
         }
       });
     },
-    // 
   },
   actions: {
     // update action for share data
@@ -131,7 +136,22 @@ export const store = new Vuex.Store({
           }
         });
       });
-    }
+    },
+    // call some background methods, and update data by response
+    call(store, helper) {
+      return new Promise((resolve, reject) => {
+        sendCall(helper, (message) => {
+          if (message.error) {
+            store.commit('error', message.error);
+            reject(message.error);
+          }
+          else {
+            store.commit('update', message.data);
+            resolve(message.data);
+          }
+        });
+      });
+    },
   },
 });
 export default store;
